@@ -1,0 +1,23 @@
+DROP DATABASE IF EXISTS BD;
+CREATE DATABASE BD;
+USE BD;
+
+CREATE TABLE Musica(
+
+	id INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(30) NOT NULL,
+    dataLancamento DATE,
+    genero VARCHAR(20),
+    primary key(id)
+);
+
+CREATE USER 'primeiro' IDENTIFIED BY '1';
+CREATE USER 'segundo' IDENTIFIED BY '2';
+
+GRANT INSERT, DELETE, DROP ON BD.Musica TO 'primeiro';
+GRANT ALL PRIVILEGES ON BD.* TO 'segundo';
+
+REVOKE ALL PRIVILEGES ON BD.Musica FROM 'primeiro';
+REVOKE UPDATE, DELETE ON BD.* FROM 'segundo';
+
+
