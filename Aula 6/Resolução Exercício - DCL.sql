@@ -1,23 +1,29 @@
+-- Apaga o banco se já existir
 DROP DATABASE IF EXISTS BD;
 CREATE DATABASE BD;
 USE BD;
 
+-- Cria a tabela Musica
 CREATE TABLE Musica(
-
 	id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(30) NOT NULL,
     dataLancamento DATE,
     genero VARCHAR(20),
-    primary key(id)
+    PRIMARY KEY(id)
 );
 
-CREATE USER 'primeiro' IDENTIFIED BY '1';
-CREATE USER 'segundo' IDENTIFIED BY '2';
+-- Remove os usuários se já existirem
+DROP USER IF EXISTS 'primeiro'@'localhost';
+DROP USER IF EXISTS 'segundo'@'localhost';
 
-GRANT INSERT, DELETE, DROP ON BD.Musica TO 'primeiro';
-GRANT ALL PRIVILEGES ON BD.* TO 'segundo';
+-- Cria novamente os usuários
+CREATE USER 'primeiro'@'localhost' IDENTIFIED BY '1';
+CREATE USER 'segundo'@'localhost' IDENTIFIED BY '2';
 
-REVOKE ALL PRIVILEGES ON BD.Musica FROM 'primeiro';
-REVOKE UPDATE, DELETE ON BD.* FROM 'segundo';
-
+-- Concede os privilégios
+GRANT INSERT, DELETE, DROP ON BD.* TO 'primeiro'@'localhost';
+GRANT ALL PRIVILEGES ON BD.* TO 'segundo'@'localhost';
+-- Revoga privilégios específicos
+REVOKE ALL PRIVILEGES ON BD.* FROM 'primeiro'@'localhost';
+REVOKE UPDATE, DELETE ON BD.* FROM 'segundo'@'localhost';
 
