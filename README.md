@@ -18,7 +18,7 @@ Integração com Python e Java: Utilização de Maven e como integrar um banco d
 
 Como Utilizar
 Clone o repositório:
-git clone https://github.com/Felipe-Tagawa/C07-Monitoria
+git clone https://github.com/Felipe-Tagawa/C07-Monitoria.git
 
 Execute o script de criação do banco de dados em seu ambiente local (MySQL Workbench).
 
