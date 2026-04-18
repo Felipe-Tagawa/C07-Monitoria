@@ -1,46 +1,42 @@
--- 1
-DROP DATABASE IF EXISTS database1;
-CREATE DATABASE database1;
--- 2
-USE database1;
+-- 1. Banco de Dados
+DROP DATABASE IF EXISTS streaming_db;
+CREATE DATABASE streaming_db;
+USE streaming_db;
 
-SET SQL_SAFE_UPDATES = 0; -- Utilizar Updates sem problemas
-
--- 3
-CREATE TABLE Pessoa(
-
-	id INT NOT NULL AUTO_INCREMENT,
-    nome VARCHAR(40),
-    endereco VARCHAR(45),
-    profissao VARCHAR(20) NOT NULL,
-    primary key(id)
+-- 2. Tabela
+CREATE TABLE Filme (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(20) NOT NULL,
+    genero VARCHAR(30),
+    ano_lancamento YEAR NOT NULL
 );
 
--- 4
-INSERT INTO Pessoa VALUES
-(default, 'Felipe', 'Rua1', 'Engenheiro'),
-(default, 'Samuel', 'Rua2', 'Médico'),
-(default, 'Pablo', 'Rua3', 'Jardineiro');
+-- Incluir nova coluna
+ALTER TABLE Filme ADD COLUMN classificacao_etaria VARCHAR(10);
 
--- 5
-ALTER TABLE Pessoa ADD telefone VARCHAR(20);
+-- Aumentar limite do título para 60 caracteres
+ALTER TABLE Filme MODIFY COLUMN titulo VARCHAR(60) NOT NULL;
 
--- 6
-ALTER TABLE Pessoa DROP COLUMN endereco;
+-- Desativar trava de segurança
+SET SQL_SAFE_UPDATES = 0;
 
--- 7
-UPDATE Pessoa SET telefone = '(35)99999-9999' WHERE id = 2;
-UPDATE Pessoa SET telefone = '(35)99999-9998' WHERE id = 3;
+-- Inserção de 3 filmes
+INSERT INTO Filme (titulo, genero, ano_lancamento, classificacao_etaria) VALUES 
+('Interestelar', 'Ficção Científica', 2014, '10+'),
+('O Poderoso Chefão', 'Drama', 1972, '14+'),
+('Shrek', 'Animação', 2001, 'Livre');
 
--- 8
-ALTER TABLE Pessoa MODIFY nome VARCHAR(30);
+-- Atualizar o gênero de um filme
+UPDATE Filme SET genero = 'Sci-Fi / Drama' WHERE titulo = 'Interestelar';
 
--- 9
-DELETE FROM Pessoa Where id = 1;
+-- Deletar o filme com o primeiro ID
+DELETE FROM Filme WHERE id = 1;
 
--- 10
-SELECT * FROM Pessoa;
+-- Validar as operações
+SELECT * FROM Filme;
 
--- 11
-TRUNCATE TABLE Pessoa;
+-- Visualizar as tabelas existentes
+SHOW TABLES;
 
+-- Remover todos os registros 
+TRUNCATE TABLE Filme;
