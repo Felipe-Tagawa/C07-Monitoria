@@ -34,7 +34,6 @@ END $$
 
 DELIMITER ;
 
--- Chamando a procedure para inserir os dados
 CALL insereFuncionario();
 
 SELECT email FROM Funcionario;
